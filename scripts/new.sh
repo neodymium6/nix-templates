@@ -119,6 +119,10 @@ fi
 
 copier copy "$templates_root/$template" "$dest" "${copier_args[@]}" "$@"
 
+# Copier may preserve read-only mode bits from templates under /nix/store.
+# Ensure generated project files are editable by the current user.
+chmod -R u+rwX "$dest"
+
 echo "Created: $dest"
 echo "Next: cd \"$dest\""
 echo "Then: direnv allow (if you use direnv) or nix develop"
