@@ -1,0 +1,23 @@
+_min_copier_version: "9.0.0"
+
+project_name:
+  type: str
+  help: "Project name (also used as Python package name; use snake_case)"
+  default: "my_project"
+
+description:
+  type: str
+  help: "One-line description"
+  default: "A Python project managed with Nix"
+
+author:
+  type: str
+  help: "Author name (optional)"
+  default: ""
+
+license:
+  type: str
+  default: "MIT"
+  choices:
+    - MIT
+    - Apache-2.0
