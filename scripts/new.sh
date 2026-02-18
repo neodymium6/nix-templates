@@ -103,7 +103,17 @@ if [ -e "$dest" ]; then
 fi
 
 copier_args=()
-if ! [ -t 0 ] || ! [ -t 1 ]; then
+has_noninteractive_flag=false
+for arg in "$@"; do
+  case "$arg" in
+  --defaults | -l | --force | -f)
+    has_noninteractive_flag=true
+    break
+    ;;
+  esac
+done
+
+if { ! [ -t 0 ] || ! [ -t 1 ]; } && [ "$has_noninteractive_flag" = false ]; then
   copier_args+=(--defaults)
 fi
 
