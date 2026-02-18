@@ -4,6 +4,10 @@ project_name:
   type: str
   help: "Project name (also used as Python package name; use snake_case)"
   default: "my_project"
+  validator: >-
+    {% if not (project_name | regex_search('^[a-z][a-z0-9_]*$')) %}
+    project_name must start with a lowercase letter, then use lowercase letters, digits, or underscores
+    {% endif %}
 
 description:
   type: str
