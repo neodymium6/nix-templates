@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "{{ description }}"
 readme = "README.md"
 license = "{{ license }}"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = []
 {% if author %}
@@ -11,7 +12,7 @@ authors = [{ name = "{{ author }}" }]
 {% endif %}
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27.0"]
 build-backend = "hatchling.build"
 
 [tool.ruff]
