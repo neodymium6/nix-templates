@@ -36,6 +36,28 @@ list_templates() {
   shopt -u nullglob
 }
 
+is_known_template() {
+  local wanted="$1"
+  local path
+  local name
+
+  if [ ! -d "$templates_root" ]; then
+    return 1
+  fi
+
+  shopt -s nullglob
+  for path in "$templates_root"/*; do
+    [ -d "$path" ] || continue
+    name="${path##*/}"
+    if [ "$name" = "$wanted" ]; then
+      shopt -u nullglob
+      return 0
+    fi
+  done
+  shopt -u nullglob
+  return 1
+}
+
 show_help() {
   cat <<'USAGE'
 Usage:
@@ -89,11 +111,7 @@ if [ -z "$template" ] || [ -z "$dest" ]; then
   die "Both --template and --dest are required"
 fi
 
-if [ "${template#../}" != "$template" ] || [ "${template#*/}" != "$template" ] || [ "$template" = ".." ]; then
-  die "Template name must be a single directory name: $template"
-fi
-
-if [ ! -d "$templates_root/$template" ]; then
+if ! is_known_template "$template"; then
   show_help >&2
   die "Unknown template: $template"
 fi
