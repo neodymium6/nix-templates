@@ -48,8 +48,8 @@
       in
       {
         apps = {
-          init = { type = "app"; program = "${init}/bin/init"; };
-          default = { type = "app"; program = "${init}/bin/init"; };
+          init = { type = "app"; program = "${init}/bin/init"; meta.description = "Bootstrap the Python template into the current directory."; };
+          default = { type = "app"; program = "${init}/bin/init"; meta.description = "Bootstrap the Python template into the current directory."; };
         };
       });
 }

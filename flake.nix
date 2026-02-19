@@ -44,10 +44,12 @@
             new = {
               type = "app";
               program = "${new}/bin/new";
+              meta.description = "Create projects from bundled Copier templates.";
             };
             default = {
               type = "app";
               program = "${new}/bin/new";
+              meta.description = "Create projects from bundled Copier templates.";
             };
           };
         }
