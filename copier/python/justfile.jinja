@@ -16,6 +16,11 @@ test:
 check:
   pre-commit run --all-files
 
+# Create a GitHub repository and set origin.
+repo-create name='{{ project_name }}': init
+  if ! gh auth status >/dev/null 2>&1; then gh auth login; fi
+  gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin
+
 # Remove development caches and build artifacts.
 clean:
   rm -rf .venv .mypy_cache .pytest_cache .ruff_cache .pre-commit-cache
