@@ -2,6 +2,10 @@
 
 Project templates powered by Copier and Nix.
 
+## Template Docs
+
+- [Python template](docs/python-template.md)
+
 ## Usage
 
 ### List templates
