@@ -6,20 +6,16 @@
 ```bash
 # If you use direnv
 direnv allow
-uv sync
-uv run mypy src tests
-uv run pytest
+just init
+just test
 uv run python -c "import {{ project_name }}; print('ok')"
 
 # Without direnv
 nix develop
-uv sync
-uv run mypy src tests
-uv run pytest
+just init
+just test
 uv run python -c "import {{ project_name }}; print('ok')"
 
-# Optional: enable pre-commit hooks (requires a Git repository)
-git init
-pre-commit install --install-hooks
-pre-commit run --all-files
+# Run all checks
+just check
 ```

@@ -1,0 +1,24 @@
+# Show available recipes.
+default:
+  @just --list
+
+# Bootstrap the project (git init, deps, hooks).
+init:
+  if [ ! -d .git ]; then git init; fi
+  uv sync
+  pre-commit install --install-hooks
+
+# Run tests.
+test:
+  uv run pytest -q
+
+# Run all pre-commit checks.
+check:
+  pre-commit run --all-files
+
+# Remove development caches and build artifacts.
+clean:
+  rm -rf .venv .mypy_cache .pytest_cache .ruff_cache .pre-commit-cache
+  rm -rf .coverage .coverage.* htmlcov
+  rm -rf build dist *.egg-info
+  find . -type d -name "__pycache__" -exec rm -rf {} +
