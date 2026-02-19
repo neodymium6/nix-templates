@@ -20,6 +20,6 @@ uv run python -c "import {{ project_name }}; print('ok')"
 
 # Optional: enable pre-commit hooks (requires a Git repository)
 git init
-pre-commit install
+pre-commit install --install-hooks
 pre-commit run --all-files
 ```
