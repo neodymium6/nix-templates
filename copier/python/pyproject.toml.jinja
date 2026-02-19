@@ -11,6 +11,11 @@ dependencies = []
 authors = [{ name = "{{ author }}" }]
 {% endif %}
 
+[dependency-groups]
+dev = [
+  "pytest>=9.0.1",
+]
+
 [build-system]
 requires = ["hatchling>=1.27.0"]
 build-backend = "hatchling.build"

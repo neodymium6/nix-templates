@@ -7,10 +7,12 @@
 # If you use direnv
 direnv allow
 uv sync
+uv run pytest
 uv run python -c "import {{ project_name }}; print('ok')"
 
 # Without direnv
 nix develop
 uv sync
+uv run pytest
 uv run python -c "import {{ project_name }}; print('ok')"
 ```
