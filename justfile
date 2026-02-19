@@ -8,7 +8,7 @@ init:
 
 # Format Nix files.
 fmt:
-  nix fmt flake.nix
+  find . -type d \( -name .git -o -name .direnv \) -prune -o -type f -name "*.nix" -exec nixfmt {} +
 
 # Evaluate flake checks.
 check:

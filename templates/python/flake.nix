@@ -6,13 +6,20 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    { nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs { inherit system; };
         init = pkgs.writeShellApplication {
           name = "init";
-          runtimeInputs = with pkgs; [ nix rsync coreutils findutils ];
+          runtimeInputs = with pkgs; [
+            nix
+            rsync
+            coreutils
+            findutils
+          ];
           text = ''
             set -euo pipefail
 
@@ -48,8 +55,17 @@
       in
       {
         apps = {
-          init = { type = "app"; program = "${init}/bin/init"; };
-          default = { type = "app"; program = "${init}/bin/init"; };
+          init = {
+            type = "app";
+            program = "${init}/bin/init";
+            meta.description = "Bootstrap the Python template into the current directory.";
+          };
+          default = {
+            type = "app";
+            program = "${init}/bin/init";
+            meta.description = "Bootstrap the Python template into the current directory.";
+          };
         };
-      });
+      }
+    );
 }

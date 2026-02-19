@@ -34,7 +34,7 @@ repos:
   - repo: local
     hooks:
       - id: nix-fmt
-        name: nix fmt
-        entry: nix fmt flake.nix
+        name: nix fmt (all .nix files)
+        entry: find . -type d \( -name .git -o -name .direnv \) -prune -o -type f -name "*.nix" -exec nixfmt {} +
         language: system
         pass_filenames: false
