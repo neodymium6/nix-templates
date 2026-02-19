@@ -25,3 +25,12 @@ license:
   choices:
     - MIT
     - Apache-2.0
+
+github_visibility:
+  type: str
+  help: "Default visibility for `just repo-create`"
+  default: "private"
+  choices:
+    - private
+    - public
+    - internal
