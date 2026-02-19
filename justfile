@@ -1,0 +1,22 @@
+# Show available recipes.
+default:
+  @just --list
+
+# Format Nix files.
+fmt:
+  nix fmt flake.nix
+
+# Evaluate flake checks.
+check:
+  nix flake check
+
+# CI alias (same checks as `check`).
+ci: check
+
+# Update flake inputs.
+update:
+  nix flake update
+
+# Remove local Nix and direnv artifacts.
+clean:
+  rm -rf .direnv .pre-commit-cache result result-*

@@ -23,6 +23,12 @@
           };
         in
         {
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              just
+            ];
+          };
+
           apps = {
             new = { type = "app"; program = "${new}/bin/new"; };
             default = { type = "app"; program = "${new}/bin/new"; };
