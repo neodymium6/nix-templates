@@ -1,0 +1,34 @@
+# Show available recipes.
+default:
+  @just --list
+
+# Initialize local repository if needed.
+init:
+  if [ ! -d .git ]; then git init; fi
+  pre-commit install --install-hooks
+
+# Format Nix files.
+fmt:
+  nix fmt flake.nix
+
+# Evaluate flake checks.
+check:
+  pre-commit run --all-files
+  nix flake check
+
+# CI alias (same checks as `check`).
+ci: check
+
+# Update flake inputs.
+update:
+  nix flake update
+
+# Create a GitHub repository and set origin.
+repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
+  case "{% raw %}{{visibility}}{% endraw %}" in public|private|internal) ;; *) echo "visibility must be one of: public, private, internal"; exit 2 ;; esac
+  if ! gh auth status >/dev/null 2>&1; then echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 2; fi
+  gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"{% raw %}{{visibility}}{% endraw %}"
+
+# Remove local Nix and direnv artifacts.
+clean:
+  rm -rf .direnv .pre-commit-cache result result-*

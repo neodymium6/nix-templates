@@ -1,0 +1,25 @@
+# {{ project_name }}
+
+{{ description }}
+
+## Dev
+```bash
+# If you use direnv
+direnv allow
+just init
+just fmt
+just check
+just ci
+
+# Without direnv
+nix develop
+just init
+just fmt
+just check
+just ci
+
+# Optional: create a GitHub repository
+just repo-create
+# or: just repo-create your-repo-name
+# or: just repo-create your-repo-name public
+```

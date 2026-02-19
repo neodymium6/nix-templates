@@ -122,17 +122,61 @@ fi
 
 copier_args=()
 has_noninteractive_flag=false
+has_author_data=false
+has_data_file=false
+expect_data_value=false
+expect_data_file_value=false
+autofill_author=false
 for arg in "$@"; do
+  if [ "$expect_data_file_value" = true ]; then
+    has_data_file=true
+    expect_data_file_value=false
+    continue
+  fi
+
+  if [ "$expect_data_value" = true ]; then
+    case "$arg" in
+    author=*)
+      has_author_data=true
+      ;;
+    esac
+    expect_data_value=false
+    continue
+  fi
+
   case "$arg" in
   --defaults | -l | --force | -f)
     has_noninteractive_flag=true
-    break
+    ;;
+  -d | --data)
+    expect_data_value=true
+    ;;
+  --data-file)
+    expect_data_file_value=true
+    ;;
+  --data=author=*)
+    has_author_data=true
+    ;;
+  --data-file=*)
+    has_data_file=true
     ;;
   esac
 done
 
+if [ "$has_noninteractive_flag" = true ]; then
+  autofill_author=true
+fi
+
 if { ! [ -t 0 ] || ! [ -t 1 ]; } && [ "$has_noninteractive_flag" = false ]; then
   copier_args+=(--defaults)
+  autofill_author=true
+fi
+
+if [ "$autofill_author" = true ] && [ "$has_author_data" = false ] && [ "$has_data_file" = false ] && { [ "$template" = "python" ] || [ "$template" = "flake" ]; }; then
+  author_default="${GIT_AUTHOR_NAME:-${GIT_COMMITTER_NAME:-${USER:-}}}"
+  if [ -n "$author_default" ]; then
+    copier_args+=(--data "author=$author_default")
+  fi
 fi
 
 copier copy "$templates_root/$template" "$dest" "${copier_args[@]}" "$@"

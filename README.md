@@ -4,7 +4,7 @@ Project templates powered by Copier and Nix.
 
 ## Template Docs
 
-- [Python template](docs/python-template.md)
+See `docs/` for template-specific guides.
 
 ## Usage
 
@@ -17,16 +17,18 @@ nix run github:neodymium6/nix-templates#new -- --help
 ### One-shot (recommended)
 
 ```bash
-nix run github:neodymium6/nix-templates#new -- --template python --dest myproj
+repo=github:neodymium6/nix-templates
+nix run "$repo#new" -- --template <template> --dest <dest>
 ```
 
 ### Bootstrap via `nix flake init/new`
 
 ```bash
-nix flake new myproj -t github:neodymium6/nix-templates#python
-# or: nix flake init -t github:neodymium6/nix-templates#python
+repo=github:neodymium6/nix-templates
+nix flake new <dest> -t "$repo#<template>"
+# or: nix flake init -t "$repo#<template>"
 
-cd myproj
+cd <dest>
 nix run .#init
 ```
 
