@@ -56,6 +56,32 @@
             ```
           '';
         };
+        flake = {
+          path = ./templates/flake;
+          description = "Nix flake bootstrap template";
+          welcomeText = ''
+            Nix flake bootstrap template
+
+            Run:
+
+            ```bash
+            nix run .#init
+            ```
+
+            If using a fork:
+
+            ```bash
+            TEMPLATE_REPO=github:<you>/<repo> nix run .#init
+            ```
+
+            Alternative one-shot (skip bootstrap: `nix flake init/new` + `nix run .#init`):
+
+            ```bash
+            repo=github:neodymium6/nix-templates
+            nix run $repo#new -- --template flake --dest myflake
+            ```
+          '';
+        };
         default = python;
       };
     in
