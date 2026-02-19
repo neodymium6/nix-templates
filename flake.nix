@@ -6,28 +6,52 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      ...
+    }:
     let
-      perSystemOutputs = flake-utils.lib.eachDefaultSystem (system:
+      perSystemOutputs = flake-utils.lib.eachDefaultSystem (
+        system:
         let
           pkgs = import nixpkgs { inherit system; };
-          newScript = builtins.replaceStrings
-            [ "@SELF@" ]
-            [ "${self}" ]
-            (builtins.readFile ./scripts/new.sh);
+          newScript = builtins.replaceStrings [ "@SELF@" ] [ "${self}" ] (builtins.readFile ./scripts/new.sh);
 
           new = pkgs.writeShellApplication {
             name = "new";
-            runtimeInputs = with pkgs; [ copier coreutils ];
+            runtimeInputs = with pkgs; [
+              copier
+              coreutils
+            ];
             text = newScript;
           };
         in
         {
-          apps = {
-            new = { type = "app"; program = "${new}/bin/new"; };
-            default = { type = "app"; program = "${new}/bin/new"; };
+          formatter = pkgs.nixfmt;
+
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              just
+              nixfmt
+              pre-commit
+            ];
           };
-        });
+
+          apps = {
+            new = {
+              type = "app";
+              program = "${new}/bin/new";
+            };
+            default = {
+              type = "app";
+              program = "${new}/bin/new";
+            };
+          };
+        }
+      );
 
       templates = rec {
         python = {
@@ -85,7 +109,8 @@
         default = python;
       };
     in
-    perSystemOutputs // {
+    perSystemOutputs
+    // {
       inherit templates;
     };
 }
