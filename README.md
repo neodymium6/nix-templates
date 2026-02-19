@@ -37,3 +37,17 @@ nix run .#init
 ```bash
 TEMPLATE_REPO=github:<you>/<repo> nix run .#init
 ```
+
+## Development
+
+```bash
+# if you use direnv
+direnv allow
+just init
+just ci
+
+# without direnv
+nix develop
+just init
+just ci
+```
