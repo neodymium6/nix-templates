@@ -153,6 +153,11 @@ if [ "$has_noninteractive_flag" = true ]; then
   autofill_author=true
 fi
 
+if { ! [ -t 0 ] || ! [ -t 1 ]; } && [ "$has_noninteractive_flag" = false ]; then
+  copier_args+=(--defaults)
+  autofill_author=true
+fi
+
 if [ "$autofill_author" = true ] && [ "$has_author_data" = false ] && { [ "$template" = "python" ] || [ "$template" = "flake" ]; }; then
   author_default="${GIT_AUTHOR_NAME:-${GIT_COMMITTER_NAME:-${USER:-}}}"
   if [ -n "$author_default" ]; then
