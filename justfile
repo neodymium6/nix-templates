@@ -2,12 +2,17 @@
 default:
   @just --list
 
+# Install git hooks.
+init:
+  pre-commit install --install-hooks
+
 # Format Nix files.
 fmt:
   nix fmt flake.nix
 
 # Evaluate flake checks.
 check:
+  pre-commit run --all-files
   nix flake check
 
 # CI alias (same checks as `check`).
