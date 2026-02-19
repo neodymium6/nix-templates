@@ -1,0 +1,36 @@
+_min_copier_version: "9.0.0"
+
+project_name:
+  type: str
+  help: "Project name"
+  default: "my-flake"
+  validator: >-
+    {% if not (project_name | regex_search('^[a-zA-Z0-9][a-zA-Z0-9._-]*$')) %}
+    project_name must use letters/digits/._- and start with a letter or digit
+    {% endif %}
+
+description:
+  type: str
+  help: "One-line description"
+  default: "A Nix flake project"
+
+author:
+  type: str
+  help: "Copyright holder name"
+  default: ""
+
+license:
+  type: str
+  default: "MIT"
+  choices:
+    - MIT
+    - Apache-2.0
+
+github_visibility:
+  type: str
+  help: "Default visibility for `just repo-create`"
+  default: "private"
+  choices:
+    - private
+    - public
+    - internal
