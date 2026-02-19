@@ -18,10 +18,9 @@ check:
 
 # Create a GitHub repository and set origin.
 repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
-  vis="{% raw %}{{visibility}}{% endraw %}"
-  case "$vis" in public|private|internal) ;; *) echo "visibility must be one of: public, private, internal"; exit 2 ;; esac
+  case "{% raw %}{{visibility}}{% endraw %}" in public|private|internal) ;; *) echo "visibility must be one of: public, private, internal"; exit 2 ;; esac
   if ! gh auth status >/dev/null 2>&1; then gh auth login; fi
-  gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"$vis"
+  gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"{% raw %}{{visibility}}{% endraw %}"
 
 # Remove development caches and build artifacts.
 clean:
