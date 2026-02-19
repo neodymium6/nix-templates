@@ -13,10 +13,11 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = [
-            pkgs.uv
-            pkgs.ruff
-            pkgs.pyright
+          packages = with pkgs; [
+            gh
+            just
+            uv
+            pre-commit
           ];
         };
       });

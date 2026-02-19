@@ -6,11 +6,21 @@
 ```bash
 # If you use direnv
 direnv allow
-uv sync
+just init
+just test
 uv run python -c "import {{ project_name }}; print('ok')"
 
 # Without direnv
 nix develop
-uv sync
+just init
+just test
 uv run python -c "import {{ project_name }}; print('ok')"
+
+# Run all checks
+just check
+
+# Optional: create a GitHub repository
+just repo-create
+# or: just repo-create your-repo-name
+# or: just repo-create your-repo-name public
 ```
