@@ -10,3 +10,11 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
       - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: uv run pytest -q
+        language: system
+        pass_filenames: false
