@@ -13,7 +13,7 @@ fmt:
 # Evaluate flake checks.
 check:
   pre-commit run --all-files
-  nix flake check
+  nix flake check --all-systems
 
 # CI alias (same checks as `check`).
 ci: check
