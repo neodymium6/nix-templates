@@ -10,7 +10,6 @@
 - `biber` + BibLaTeX for bibliography support
 - `chktex` for LaTeX checks
 - `latexindent` for formatting
-- `texlab` for editor/LSP support
 - `pre-commit` hooks for checks
 - `just` task runner
 - `gh` for optional GitHub repository creation
