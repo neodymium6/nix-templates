@@ -108,6 +108,32 @@
             ```
           '';
         };
+        latex = {
+          path = ./templates/latex;
+          description = "LaTeX bootstrap template";
+          welcomeText = ''
+            LaTeX bootstrap template
+
+            Run:
+
+            ```bash
+            nix run .#init
+            ```
+
+            If using a fork:
+
+            ```bash
+            TEMPLATE_REPO=github:<you>/<repo> nix run .#init
+            ```
+
+            Alternative one-shot (skip bootstrap: `nix flake init/new` + `nix run .#init`):
+
+            ```bash
+            repo=github:neodymium6/nix-templates
+            nix run $repo#new -- --template latex --dest mypaper
+            ```
+          '';
+        };
         default = python;
       };
     in

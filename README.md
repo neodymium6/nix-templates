@@ -6,6 +6,10 @@ Project templates powered by Copier and Nix.
 
 See `docs/` for template-specific guides.
 
+- [flake](docs/flake-template.md)
+- [python](docs/python-template.md)
+- [latex](docs/latex-template.md)
+
 ## Usage
 
 ### List templates
