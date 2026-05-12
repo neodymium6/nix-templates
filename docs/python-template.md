@@ -31,7 +31,7 @@ just repo-create
 ```
 
 - Default repo name: project name
-- Default visibility: selected during Copier prompt (`private/public/internal`)
+- Default visibility: selected during Copier prompt (`private/public`)
 - You can override both:
 
 ```bash

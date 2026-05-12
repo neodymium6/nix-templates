@@ -55,4 +55,3 @@ github_visibility:
   choices:
     - private
     - public
-    - internal
