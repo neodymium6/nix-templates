@@ -12,12 +12,13 @@
 - `latexindent` for formatting
 - `pre-commit` hooks for checks
 - `just` task runner
-- `gh` for optional GitHub repository creation
+- `gh` for optional GitHub repository creation when `remote` is enabled
 
 ## Template Options
 
 - `language`: `english` or `japanese`
 - `bibliography`: include BibLaTeX/Biber setup and `references.bib`
+- `remote`: include remote repository helper and CI workflow (default: `true`)
 
 Japanese documents use LuaLaTeX with `ltjsarticle` and `luatexja`.
 
@@ -38,7 +39,7 @@ PDF metadata uses the actual build time instead of Nix's reproducible timestamp.
 
 ## GitHub Repository Helper
 
-The generated `justfile` includes:
+When `remote` is enabled, the generated `justfile` includes:
 
 ```bash
 just repo-create
