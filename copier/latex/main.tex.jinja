@@ -1,0 +1,66 @@
+{% if language == "japanese" -%}
+\documentclass{ltjsarticle}
+\usepackage{luatexja}
+{% else -%}
+\documentclass{article}
+{% endif -%}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+{% if language == "english" %}
+\usepackage{microtype}
+{% endif %}
+{% if bibliography %}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
+{% endif %}
+
+\hypersetup{
+  colorlinks = true,
+  linkcolor = blue,
+  citecolor = blue,
+  urlcolor = blue,
+}
+
+\title{ {{ title }} }
+{% if author -%}
+\author{ {{ author }} }
+{% else -%}
+\author{}
+{% endif -%}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+{% if language == "japanese" -%}
+\section{はじめに}
+
+これは LuaLaTeX でビルドする日本語文書のテンプレートです。
+{% if bibliography %}
+参考文献の例です\cite{knuth1984texbook}。
+{% endif %}
+
+\section{本文}
+
+本文を書き始めます。
+{% else -%}
+\section{Introduction}
+
+This is a LaTeX document template built with LuaLaTeX.
+{% if bibliography %}
+Here is a bibliography example~\cite{knuth1984texbook}.
+{% endif %}
+
+\section{Body}
+
+Start writing here.
+{% endif %}
+
+{% if bibliography %}
+\printbibliography
+{% endif %}
+
+\end{document}

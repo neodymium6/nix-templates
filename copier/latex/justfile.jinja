@@ -1,0 +1,40 @@
+# Show available recipes.
+default:
+  @just --list
+
+# Bootstrap the project (git init, hooks).
+init:
+  if [ ! -d .git ]; then git init; fi
+  pre-commit install --install-hooks
+
+# Format TeX sources.
+fmt:
+  latexindent -w -s main.tex
+
+# Build the PDF.
+build:
+  env -u SOURCE_DATE_EPOCH latexmk main.tex
+
+# Rebuild the PDF when sources change.
+watch:
+  env -u SOURCE_DATE_EPOCH latexmk -pvc main.tex
+
+# Lint TeX sources.
+check:
+  chktex -q -n 1 main.tex
+
+# CI alias.
+ci:
+  just check
+  just build
+
+# Create a GitHub repository and set origin.
+repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
+  case "{% raw %}{{visibility}}{% endraw %}" in public|private|internal) ;; *) echo "visibility must be one of: public, private, internal"; exit 2 ;; esac
+  if ! gh auth status >/dev/null 2>&1; then echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 2; fi
+  gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"{% raw %}{{visibility}}{% endraw %}"
+
+# Remove generated files.
+clean:
+  latexmk -C main.tex
+  rm -rf build

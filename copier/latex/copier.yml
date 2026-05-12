@@ -1,0 +1,47 @@
+_min_copier_version: "9.0.0"
+
+project_name:
+  type: str
+  help: "Project name"
+  default: "my-paper"
+  validator: >-
+    {% if not (project_name | regex_search('^[a-zA-Z0-9][a-zA-Z0-9._-]*$')) %}
+    project_name must use letters/digits/._- and start with a letter or digit
+    {% endif %}
+
+description:
+  type: str
+  help: "One-line description"
+  default: "A LaTeX project managed with Nix"
+
+title:
+  type: str
+  help: "Document title"
+  default: "My Paper"
+
+author:
+  type: str
+  help: "Author name (optional)"
+  default: ""
+
+language:
+  type: str
+  help: "Document language"
+  default: "english"
+  choices:
+    - english
+    - japanese
+
+bibliography:
+  type: bool
+  help: "Include BibLaTeX/Biber bibliography setup"
+  default: true
+
+github_visibility:
+  type: str
+  help: "Default visibility for `just repo-create`"
+  default: "private"
+  choices:
+    - private
+    - public
+    - internal
