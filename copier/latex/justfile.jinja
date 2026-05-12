@@ -7,26 +7,26 @@ init:
   if [ ! -d .git ]; then git init; fi
   pre-commit install --install-hooks
 
-# Format TeX sources.
-fmt:
-  latexindent -w -s main.tex
+# Format a TeX source.
+fmt file='main.tex':
+  latexindent -w -s "{% raw %}{{file}}{% endraw %}"
 
 # Build the PDF.
-build:
-  env -u SOURCE_DATE_EPOCH latexmk main.tex
+build file='main.tex':
+  env -u SOURCE_DATE_EPOCH latexmk "{% raw %}{{file}}{% endraw %}"
 
 # Rebuild the PDF when sources change.
-watch:
-  env -u SOURCE_DATE_EPOCH latexmk -pvc main.tex
+watch file='main.tex':
+  env -u SOURCE_DATE_EPOCH latexmk -pvc "{% raw %}{{file}}{% endraw %}"
 
-# Lint TeX sources.
-check:
-  chktex -q -n 1 main.tex
+# Lint a TeX source.
+check file='main.tex':
+  chktex -q -n 1 "{% raw %}{{file}}{% endraw %}"
 
 # CI alias.
-ci:
-  just check
-  just build
+ci file='main.tex':
+  just check "{% raw %}{{file}}{% endraw %}"
+  just build "{% raw %}{{file}}{% endraw %}"
 
 # Create a GitHub repository and set origin.
 repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
@@ -35,6 +35,6 @@ repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
   gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"{% raw %}{{visibility}}{% endraw %}"
 
 # Remove generated files.
-clean:
-  latexmk -C main.tex
+clean file='main.tex':
+  latexmk -C "{% raw %}{{file}}{% endraw %}"
   rm -rf build
