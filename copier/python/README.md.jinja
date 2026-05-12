@@ -18,9 +18,11 @@ uv run python -c "import {{ project_name }}; print('ok')"
 
 # Run all checks
 just check
+{%- if remote %}
 
 # Optional: create a GitHub repository
 just repo-create
 # or: just repo-create your-repo-name
 # or: just repo-create your-repo-name public
+{%- endif %}
 ```
