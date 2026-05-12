@@ -35,6 +35,6 @@ repos:
     hooks:
       - id: chktex
         name: chktex
-        entry: just check
+        entry: chktex -q -n 1
         language: system
-        pass_filenames: false
+        files: \.tex$
