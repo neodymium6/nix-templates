@@ -1,10 +1,11 @@
 {% if language == "japanese" -%}
-\documentclass{ltjsarticle}
+\documentclass[10pt,a4paper]{ltjsarticle}
 \usepackage{luatexja}
 {% else -%}
-\documentclass{article}
+\documentclass[10pt,a4paper]{article}
 {% endif -%}
 
+\usepackage[margin=20mm]{geometry}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{hyperref}
