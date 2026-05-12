@@ -40,7 +40,7 @@
 \section{はじめに}
 
 これは LuaLaTeX でビルドする日本語文書のテンプレートです。
-{% if bibliography %}
+{% if bibliography -%}
 参考文献の例です\cite{knuth1984texbook}。
 {% endif %}
 
@@ -51,7 +51,7 @@
 \section{Introduction}
 
 This is a LaTeX document template built with LuaLaTeX.
-{% if bibliography %}
+{% if bibliography -%}
 Here is a bibliography example~\cite{knuth1984texbook}.
 {% endif %}
 
