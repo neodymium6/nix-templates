@@ -25,6 +25,14 @@ repo=github:neodymium6/nix-templates
 nix run "$repo#new" -- --template <template> --dest <dest>
 ```
 
+### Examples
+
+```bash
+nix run github:neodymium6/nix-templates#new -- --template python --dest my-python-project
+nix run github:neodymium6/nix-templates#new -- --template flake --dest my-flake
+nix run github:neodymium6/nix-templates#new -- --template latex --dest my-paper
+```
+
 ### Bootstrap via `nix flake init/new`
 
 ```bash
