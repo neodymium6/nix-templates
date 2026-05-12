@@ -17,9 +17,11 @@ just init
 just fmt
 just check
 just ci
+{%- if remote %}
 
 # Optional: create a GitHub repository
 just repo-create
 # or: just repo-create your-repo-name
 # or: just repo-create your-repo-name public
+{%- endif %}
 ```

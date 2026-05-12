@@ -26,11 +26,27 @@ license:
     - MIT
     - Apache-2.0
 
+remote:
+  type: bool
+  help: "Include remote repository helper and CI workflow"
+  default: true
+
 github_visibility:
   type: str
   help: "Default visibility for `just repo-create`"
   default: "private"
+  when: "{{ remote }}"
   choices:
     - private
     - public
-    - internal
+
+_exclude:
+  - copier.yaml
+  - copier.yml
+  - "~*"
+  - "*.py[co]"
+  - "__pycache__"
+  - ".git"
+  - ".DS_Store"
+  - ".svn"
+  - "{% if not remote %}.github{% else %}.copier-never-exclude{% endif %}"

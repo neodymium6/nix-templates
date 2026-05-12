@@ -10,7 +10,11 @@
 - `ruff` for lint/format
 - `pre-commit` hooks for checks
 - `just` task runner
-- `gh` for optional GitHub repository creation
+- `gh` for optional GitHub repository creation when `remote` is enabled
+
+## Template Options
+
+- `remote`: include remote repository helper and CI workflow (default: `true`)
 
 ## Generated Commands
 
@@ -24,14 +28,14 @@ just check
 
 ## GitHub Repository Helper
 
-The generated `justfile` includes:
+When `remote` is enabled, the generated `justfile` includes:
 
 ```bash
 just repo-create
 ```
 
 - Default repo name: project name
-- Default visibility: selected during Copier prompt (`private/public/internal`)
+- Default visibility: selected during Copier prompt (`private/public`)
 - You can override both:
 
 ```bash
