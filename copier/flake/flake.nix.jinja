@@ -18,7 +18,9 @@
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
+            {% if remote -%}
             gh
+            {% endif -%}
             just
             nixfmt
             pre-commit

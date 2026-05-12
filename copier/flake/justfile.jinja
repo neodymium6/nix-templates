@@ -22,12 +22,14 @@ ci: check
 # Update flake inputs.
 update:
   nix flake update
+{%- if remote %}
 
 # Create a GitHub repository and set origin.
 repo-create name='{{ project_name }}' visibility='{{ github_visibility }}': init
   case "{% raw %}{{visibility}}{% endraw %}" in public|private) ;; *) echo "visibility must be one of: public, private"; exit 2 ;; esac
   if ! gh auth status >/dev/null 2>&1; then echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 2; fi
   gh repo create "{% raw %}{{name}}{% endraw %}" --source=. --remote=origin --"{% raw %}{{visibility}}{% endraw %}"
+{%- endif %}
 
 # Remove local Nix and direnv artifacts.
 clean:

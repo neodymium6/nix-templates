@@ -8,10 +8,14 @@
 - `.envrc` for `direnv` + flakes
 - `.gitignore` for common Nix/direnv artifacts
 - `.pre-commit-config.yaml` for baseline checks
-- `.github/workflows/ci.yml` for CI checks on push/PR
+- `.github/workflows/ci.yml` for CI checks on push/PR when `remote` is enabled
 - `justfile` with helper commands
 - `LICENSE`
 - `README.md`
+
+## Template Options
+
+- `remote`: include remote repository helper and CI workflow (default: `true`)
 
 ## Included Commands
 
@@ -27,7 +31,7 @@ just update
 
 ## GitHub Repository Helper
 
-The generated `justfile` includes:
+When `remote` is enabled, the generated `justfile` includes:
 
 ```bash
 just repo-create
